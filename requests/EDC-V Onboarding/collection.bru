@@ -1,0 +1,46 @@
+meta {
+  name: EDC-V Onboarding
+}
+
+auth {
+  mode: oauth2
+}
+
+auth:oauth2 {
+  grant_type: client_credentials
+  access_token_url: http://jad.localhost/auth/realms/edcv/protocol/openid-connect/token
+  refresh_token_url: 
+  client_id: admin
+  client_secret: edc-v-admin-secret
+  scope: provision-manager-api:write
+  credentials_placement: body
+  credentials_id: administration-api
+  token_source: access_token
+  token_placement: header
+  token_header_prefix: Bearer
+  auto_fetch_token: true
+  auto_refresh_token: false
+}
+
+vars:pre-request {
+  issuer_apiKey: 
+  issuer_clientId: issuer
+  issuer_clientSecret: issuer-secret
+  tenant_clientId: 
+  tenant_clientSecret: 
+  tenant_apiKey: 
+  POLICY_ID: 
+  : 
+}
+
+script:post-response {
+  // Append-only: status code is any 2xx or 409, considering numeric and string descriptions
+  test("Status code is 2xx or 409", function () {
+      const code = res.getStatus(); // numeric
+  
+      const is2xx = code >= 200 && code < 300;
+      const is409 = code === 409;
+  
+      expect(is2xx || is409, `Expected 2xx or 409. Got ${code} ${res.statusText}`).to.be.true;
+  });
+}
