@@ -21,12 +21,6 @@ logs:
         # https://doc.traefik.io/traefik/reference/install-configuration/observability/logs-and-accesslogs/#json-format-fields
         names:
           RouterName: drop
-ports:
-  web:
-    port: 80
-  websecure:
-    port: 443
-    exposedPort: 443
 
 # we enable gateway-api features
 providers:
