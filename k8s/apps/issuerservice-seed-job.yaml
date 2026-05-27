@@ -12,7 +12,7 @@
 #
 
 ## This seed job creates a tenant for the "issuer" in the IssuerService, as well as creates an Attestation Definition and
-## Credential Definition.
+## AeroMembership Credential Definition.
 
 apiVersion: batch/v1
 kind: Job
@@ -219,7 +219,7 @@ spec:
 
               echo ""
               echo "================================================"
-              echo "Step 3: Create AttestationDefinitions"
+              echo "Step 3: Create AeroMembership AttestationDefinition"
               echo "================================================"
 
               # Get issuer token
@@ -240,58 +240,40 @@ spec:
               fi
 
               # Create attestation definitions
-              echo "Creating Membership AttestationDefinition"
+              echo "Creating AeroMembership AttestationDefinition"
               do_curl -X POST "http://issuerservice.edc-v.svc.cluster.local:10013/api/admin/v1alpha/participants/issuer/attestations" \
                 -H "Authorization: Bearer ${ISSUER_TOKEN}" \
                 -H "Content-Type: application/json" \
                 -d '{
                   "attestationType": "membership",
                   "configuration": {},
-                  "id": "membership-attestation-def-1"
+                  "id": "aero-membership-attestation-def"
                 }'
               if [ "$RESP_STATUS" -eq 409 ]; then
-                echo "⚠ Membership AttestationDefinition already exists"
+                echo "⚠ AeroMembership AttestationDefinition already exists"
               elif [ "$RESP_STATUS" -ge 400 ]; then
-                echo "ERROR: Failed to create Membership AttestationDefinition (HTTP $RESP_STATUS): $RESP_BODY"
+                echo "ERROR: Failed to create AeroMembership AttestationDefinition (HTTP $RESP_STATUS): $RESP_BODY"
                 exit 1
               else
-                echo "✓ Membership AttestationDefinition created"
-              fi
-
-              echo "Creating Manufacturer AttestationDefinition"
-              do_curl -X POST "http://issuerservice.edc-v.svc.cluster.local:10013/api/admin/v1alpha/participants/issuer/attestations" \
-                -H "Authorization: Bearer ${ISSUER_TOKEN}" \
-                -H "Content-Type: application/json" \
-                -d '{
-                  "attestationType": "manufacturer",
-                  "configuration": {},
-                  "id": "manufacturer-attestation-def-1"
-                }'
-              if [ "$RESP_STATUS" -eq 409 ]; then
-                echo "⚠ Manufacturer AttestationDefinition already exists"
-              elif [ "$RESP_STATUS" -ge 400 ]; then
-                echo "ERROR: Failed to create Manufacturer AttestationDefinition (HTTP $RESP_STATUS): $RESP_BODY"
-                exit 1
-              else
-                echo "✓ Manufacturer AttestationDefinition created"
+                echo "✓ AeroMembership AttestationDefinition created"
               fi
 
               echo ""
               echo "================================================"
-              echo "Step 4: Create CredentialDefinitions"
+              echo "Step 4: Create AeroMembership CredentialDefinition"
               echo "================================================"
 
               # Create credential definitions
-              echo "Creating Membership CredentialDefinition"
+              echo "Creating AeroMembership CredentialDefinition"
               do_curl -X POST "http://issuerservice.edc-v.svc.cluster.local:10013/api/admin/v1alpha/participants/issuer/credentialdefinitions" \
                 -H "Authorization: Bearer ${ISSUER_TOKEN}" \
                 -H "Content-Type: application/json" \
                 -d '{
-                  "attestations": ["membership-attestation-def-1"],
-                  "credentialType": "MembershipCredential",
-                  "id": "membership-credential-def",
+                  "attestations": ["aero-membership-attestation-def"],
+                  "credentialType": "AeroMembershipCredential",
+                  "id": "aero-membership-credential-def",
                   "jsonSchema": "{}",
-                  "jsonSchemaUrl": "https://example.com/schema/membership-credential.json",
+                  "jsonSchemaUrl": "https://example.com/schema/aero-membership-credential.json",
                   "mappings": [
                     {
                       "input": "membership",
@@ -319,57 +301,12 @@ spec:
                   "validity": "604800"
                 }'
               if [ "$RESP_STATUS" -eq 409 ]; then
-                echo "⚠ Membership CredentialDefinition already exists"
+                echo "⚠ AeroMembership CredentialDefinition already exists"
               elif [ "$RESP_STATUS" -ge 400 ]; then
-                echo "ERROR: Failed to create Membership CredentialDefinition (HTTP $RESP_STATUS): $RESP_BODY"
+                echo "ERROR: Failed to create AeroMembership CredentialDefinition (HTTP $RESP_STATUS): $RESP_BODY"
                 exit 1
               else
-                echo "✓ Membership CredentialDefinition created"
-              fi
-
-              echo "Creating Manufacturer CredentialDefinition"
-              do_curl -X POST "http://issuerservice.edc-v.svc.cluster.local:10013/api/admin/v1alpha/participants/issuer/credentialdefinitions" \
-                -H "Authorization: Bearer ${ISSUER_TOKEN}" \
-                -H "Content-Type: application/json" \
-                -d '{
-                  "attestations": ["manufacturer-attestation-def-1"],
-                  "credentialType": "ManufacturerCredential",
-                  "id": "manufacturer-credential-def",
-                  "jsonSchema": "{}",
-                  "jsonSchemaUrl": "https://example.com/schema/manufacturer-credential.json",
-                  "mappings": [
-                    {
-                      "input": "contractVersion",
-                      "output": "credentialSubject.contractVersion",
-                      "required": true
-                    },
-                    {
-                      "input": "component_types",
-                      "output": "credentialSubject.part_types",
-                      "required": "true"
-                    },
-                    {
-                      "input": "since",
-                      "output": "credentialSubject.since",
-                      "required": true
-                    },
-                    {
-                      "input": "id",
-                      "output": "credentialSubject.id",
-                      "required": true
-                    }
-                  ],
-                  "rules": [],
-                  "format": "vc20-bssl/jwt",
-                  "validity": "604800"
-                }'
-              if [ "$RESP_STATUS" -eq 409 ]; then
-                echo "⚠ Manufacturer CredentialDefinition already exists"
-              elif [ "$RESP_STATUS" -ge 400 ]; then
-                echo "ERROR: Failed to create Manufacturer CredentialDefinition (HTTP $RESP_STATUS): $RESP_BODY"
-                exit 1
-              else
-                echo "✓ Manufacturer CredentialDefinition created"
+                echo "✓ AeroMembership CredentialDefinition created"
               fi
 
               echo ""

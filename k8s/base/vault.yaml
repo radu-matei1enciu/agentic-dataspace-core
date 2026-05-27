@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: vault
-          image: hashicorp/vault:latest
+          image: hashicorp/vault:latest@sha256:7553550027156b8f04e81f61a98c3f53a7bce57104f2a400e2012c851f66ac19
           ports:
             - containerPort: 8200
           securityContext:
@@ -71,7 +71,7 @@ spec:
       serviceAccountName: vault-auth
       containers:
         - name: vault-cli
-          image: hashicorp/vault:latest
+          image: hashicorp/vault:latest@sha256:7553550027156b8f04e81f61a98c3f53a7bce57104f2a400e2012c851f66ac19
           securityContext:
             capabilities:
               add:

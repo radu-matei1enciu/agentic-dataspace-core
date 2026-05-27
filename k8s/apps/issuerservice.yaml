@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
         - name: issuerservice
-          image: ghcr.io/eclipse-dataspace-hub/jad/issuerservice:latest
+          image: ghcr.io/eclipse-dataspace-hub/jad/issuerservice:latest@sha256:7bc95179290ead6b1fb22db870d28d049842d3abfdf123d815550a56cee03632
           imagePullPolicy: Always
           ports:
             - containerPort: 80

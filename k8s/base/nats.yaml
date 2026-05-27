@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - name: nats
-          image: nats:latest
+          image: nats:latest@sha256:7f430e429d0a90444b38bd40ab7812fd3afcc49a51f6b03a931f9becd5aeb280
           imagePullPolicy: IfNotPresent
           args:
             - "-c"
@@ -98,7 +98,7 @@ spec:
     spec:
       containers:
         - name: nats-cli
-          image: natsio/nats-box:latest
+          image: natsio/nats-box:latest@sha256:5d513bf0bb82d6af3fe8363097eb14d2e4ca3242db24140db88df4a4ba082442
           env:
             - name: NATS_URL
               value: "nats://nats.edc-v.svc.cluster.local:4222"

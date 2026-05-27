@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - name: clearglass
-          image: ghcr.io/eclipse-cfm/clearglass:latest
+          image: ghcr.io/eclipse-cfm/clearglass:latest@sha256:2ad3b570111def39a768f489ebeb6b83228fed3dbdf56beae72d52a2e88fe813
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
         - name: dataplane
-          image: ghcr.io/eclipse-dataspace-hub/jad/dataplane:latest
+          image: ghcr.io/eclipse-dataspace-hub/jad/dataplane:latest@sha256:f72b17ea51765166e20223a0d12b9290b71e153e8aa574af0cf6924a465c3b2e
           imagePullPolicy: Always
           envFrom:
             - configMapRef:

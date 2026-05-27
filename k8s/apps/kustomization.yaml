@@ -19,6 +19,7 @@ resources:
   - issuerservice-config.yaml
   - issuerservice.yaml
   - issuerservice-seed-job.yaml
+  - participants-seed-job.yaml
   - identityhub-config.yaml
   - identityhub.yaml
   - siglet-config.yaml

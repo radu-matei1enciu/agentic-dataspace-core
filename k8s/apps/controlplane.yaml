@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - name: controlplane
-          image: ghcr.io/eclipse-dataspace-hub/jad/controlplane:latest
+          image: ghcr.io/eclipse-dataspace-hub/jad/controlplane:latest@sha256:358e81b81940a8d1ab6ac5e32828432a471fbc4ddb1965f40fafa6c8e06a8074
           imagePullPolicy: Always
           envFrom:
             - configMapRef: { name: controlplane-config }

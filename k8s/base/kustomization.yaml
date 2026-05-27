@@ -21,3 +21,4 @@ resources:
   - nats.yaml
   - keycloak.yaml
   - vault.yaml
+  - telemetry-config.yaml
